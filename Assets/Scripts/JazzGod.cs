@@ -12,8 +12,15 @@ public class JazzGod : MonoBehaviour {
 	public GameObject soundBit;
 	public List<JazzSound> sounds = new List<JazzSound>();
 
+	private AudioClip[] saxSounds;
+	private AudioClip[] basSounds;
+	private AudioClip[] diSounds;
+	private AudioClip[] duSounds;
+	private AudioClip[] highSounds;
 
-//	Dictionary<string[], float> sounds = new Dictionary<string, float>();
+	
+
+	//	Dictionary<string[], float> sounds = new Dictionary<string, float>();
 	void Awake()
 	{
 		sMangr = GameObject.FindObjectOfType<SoundManager>();
@@ -21,6 +28,12 @@ public class JazzGod : MonoBehaviour {
 	}
 	void Start () 
 	{
+		saxSounds =SoundManager.LoadAllFromGroup("Sax");
+		basSounds =SoundManager.LoadAllFromGroup("Bas");
+		diSounds =SoundManager.LoadAllFromGroup("Di");
+		duSounds =SoundManager.LoadAllFromGroup("Du");
+		highSounds =SoundManager.LoadAllFromGroup("High");
+
 		counterBar = GameObject.FindObjectOfType<CounterBar>().transform;
 	}
 	
@@ -58,7 +71,7 @@ public class JazzGod : MonoBehaviour {
 				sounds[i].played = true;
 				if(!sounds[i].placed)
 				{
-				Instantiate(soundBit, new Vector3(counterBar.transform.position.x, counterBar.transform.position.y, counterBar.transform.position.z + 0.01f), Quaternion.identity); 
+					Instantiate(soundBit, new Vector3(counterBar.transform.position.x, counterBar.transform.position.y, counterBar.transform.position.z + 0.01f), Quaternion.identity); 
 					sounds[i].placed =true;
 				}
 				SoundManager.PlaySFX(sounds[i].soundName);
@@ -70,11 +83,12 @@ public class JazzGod : MonoBehaviour {
 		{
 			if(!improv)
 			{
-				sounds.Add(new JazzSound(counter, "Laser2", false, false));
+				sounds.Add(new JazzSound(counter, saxSounds[Random.Range(0, saxSounds.Length)].name, false, false));
 			}
 			else
 			{
-				SoundManager.PlaySFX("Laser2");
+				SoundManager.PlaySFX(saxSounds[Random.Range(0, saxSounds.Length)]);
+
 			}
 //			sounds.Add(new string[] {"Laser2", "played"},counter);
 //			SoundManager.PlaySFX("Laser2");
@@ -83,11 +97,48 @@ public class JazzGod : MonoBehaviour {
 		{
 			if(!improv)
 			{
-				sounds.Add(new JazzSound(counter, "Flashbang1", false, false));
+				sounds.Add(new JazzSound(counter, basSounds[Random.Range(0, basSounds.Length)].name, false, false));
 			}
 			else
 			{
-				SoundManager.PlaySFX("Flashbang1");
+				SoundManager.PlaySFX(basSounds[Random.Range(0, basSounds.Length)]);
+
+			}
+		}
+		if(Input.GetKeyDown("d"))
+		{
+			if(!improv)
+			{
+				sounds.Add(new JazzSound(counter, duSounds[Random.Range(0, duSounds.Length)].name, false, false));
+			}
+			else
+			{
+				SoundManager.PlaySFX(duSounds[Random.Range(0, duSounds.Length)]);
+				
+			}
+		}
+		if(Input.GetKeyDown("w"))
+		{
+			if(!improv)
+			{
+				sounds.Add(new JazzSound(counter, diSounds[Random.Range(0, diSounds.Length)].name, false, false));
+			}
+			else
+			{
+				SoundManager.PlaySFX(diSounds[Random.Range(0, diSounds.Length)]);
+				
+			}
+		}
+		if(Input.GetKeyDown("q"))
+		{
+			if(!improv)
+			{
+				sounds.Add(new JazzSound(counter, highSounds[Random.Range(0, highSounds.Length)].name, false, false));
+			}
+			else
+			{
+				SoundManager.PlaySFX(highSounds[Random.Range(0, highSounds.Length)]);
+				
 			}
 		}
 	}
