@@ -11,6 +11,8 @@ public class JazzGod : MonoBehaviour {
 	public Transform counterBar;
 	public GameObject soundBit;
 	public List<JazzSound> sounds = new List<JazzSound>();
+
+
 //	Dictionary<string[], float> sounds = new Dictionary<string, float>();
 	void Awake()
 	{
